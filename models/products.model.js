@@ -14,60 +14,44 @@ const  Product = mongoose.model('product', productSchema);
 
 exports.getAllProducts = () =>{
     return new Promise((resolve, reject) => {
-        mongoose.connect(DB_URL).then(() => {
-            return Product.find({});
-        })
+        return Product.find({})
             .then((products) => {
-            mongoose.disconnect();
-            resolve(products);
-        })
+                resolve(products);
+            })
             .catch(err => {
-                mongoose.disconnect();
                 reject(err)
             });
     })
 }
 exports.getFirstProduct = () =>{
     return new Promise((resolve, reject) => {
-        mongoose.connect(DB_URL).then(() => {
-            return Product.findOne({});
-        }).then((products) => {
-            mongoose.disconnect();
-            resolve(products);
-        }).catch(err => {
-            mongoose.disconnect();
-            reject(err)
-        });
+        return Product.findOne({})
+            .then((products) => {
+                
+                resolve(products);
+            }).catch(err => {
+                
+                reject(err)
+            });
     })
 }
 exports.getProductsByCategory = (category) =>{
     return new Promise((resolve, reject) => {
-        mongoose.connect(DB_URL).then(() => {
-            return Product.find({category});
-        }).then((products) => {
-            mongoose.disconnect();
-            resolve(products);
-        }).catch(err => {
-            mongoose.disconnect();
-            reject(err)
-        });
+        return Product.find({category})
+            .then((products) => {
+                
+                resolve(products);
+            }).catch(err => {
+                
+                reject(err)
+            });
     })
 }
 
 exports.getProductById = (id) => {
-    return new Promise((resolve, reject) => {
-        mongoose.connect(DB_URL).then(() => {
-            if(mongoose.Types.ObjectId.isValid(id)){
-                return Product.findById(id);
-            } else {
-                return undefined;
-            }
-        }).then((product) => {
-            mongoose.disconnect();
-            resolve(product);
-        }).catch(err => {
-            mongoose.disconnect();
-            reject(err)
-        });
-    })
-}
+    if (mongoose.Types.ObjectId.isValid(id)) {
+        return Product.findById(id).exec();
+    } else {
+        return Promise.resolve(undefined);
+    }
+};
