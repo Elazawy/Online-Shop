@@ -3,11 +3,28 @@
 
 <div class="container text-center">
     <h3>Login</h3>
+    <br>
     <form action="/login" method="post">
         <input type="email" name="email" class="form-control" placeholder="E-mail">
+        <% let emailError = validationErrors.find(err => err.path === "email")%>
+        <br>
+        <% if(emailError) {%>
+            <p class="alert alert-danger"><%= emailError.msg%></p>
+        <% } %>
         <input type="password" name="password" class="form-control" placeholder="Password">
-        <input type="submit" value="Create Account" class="btn btn-primary">
+        <% let passwordError = validationErrors.find(err => err.path === "password")%>
+        <br>
+        <% if(passwordError) {%>
+            <p class="alert alert-danger"><%= passwordError.msg%></p>
+        <% } %>
+        <br>
+        <input type="submit" value="Login" class="btn btn-primary">
     </form>
+    <% if(authError) { %>
+        <br>
+        <p class="alert alert-danger"><%= authError %></p>
+    <% } %>
+    <br>
     <div>
         Don't have an account? <a href="/signup">Creat Account</a>
     </div>

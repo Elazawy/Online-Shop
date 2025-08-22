@@ -7,6 +7,7 @@ const session = require('express-session');
 const SessionStore = require('connect-mongodb-session')(session);
 require('dotenv').config();
 const mongoose = require('mongoose');
+const flash = require('connect-flash')
 
 const app = express();
 
@@ -24,11 +25,14 @@ mongoose.connect(process.env.DB_URI)
 app.use(express.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'assets')));
 app.use(express.static(path.join(__dirname, 'images')));
+app.use(flash());
 
+// Make session store
 const STORE = new SessionStore({
     uri: process.env.DB_URI,
     collection: 'sessions',
 })
+// Use middleware coming from session();
 app.use(session({
     secret: process.env.SESSION_SECRET,
     cookie: {

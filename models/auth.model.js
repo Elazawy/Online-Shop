@@ -54,7 +54,6 @@ exports.login = (email, password) => {
         return User.findOne({email})
             .then(async user => {
                 if(!user || !(await bcrypt.compare(password, user.password))) {
-                    
                     reject('Invalid email or password');
                 } else {
                     resolve(user._id);
