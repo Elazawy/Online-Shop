@@ -10,18 +10,21 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/cart">Cart</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/orders">Orders</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/login">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/signup">Signup</a>
-                    </li>
+                    <% if( isUser ) {%>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/cart">Cart</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/orders">Orders</a>
+                        </li>
+                    <% } else { %>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/signup">Signup</a>
+                        </li>
+                    <% } %>
                     <li class="nav-item">
                         <a class="nav-link" href="/admin/add">Add Product</a>
                     </li>
@@ -29,9 +32,14 @@
                         <a class="nav-link" href="/admin/orders">Manage Orders</a>
                     </li>
                 </ul>
-                <form action="/logout" method="post">
-                    <button value="Logout" class="btn btn-danger" type="submit">Logout</button>
-                </form>
+                <%if(isUser) {%>
+                    <div class="d-flex align-items-center gap-4">
+                        <p class="text-white mb-0 fw-bold text-capitalize"><%= username %></p>
+                        <form action="/logout" method="post" class="mb-0">
+                            <button class="btn btn-danger" type="submit">Logout</button>
+                        </form>
+                    </div>
+                <% } %>
             </div>
         </div>
     </nav>

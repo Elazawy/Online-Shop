@@ -3,6 +3,7 @@
 
 <div class="container">
     <!-- Filter Form Start -->
+    <br>
     <form method="GET" action="/" class="mb-4">
         <div class="row">
             <div class="col-10">
@@ -20,7 +21,11 @@
         </div>
     </form>
     <!-- Filter Form End -->
-
+    <% if(validationError) { %>
+    <p class="alert alert-danger">
+        <%= validationError.msg %>
+    </p>
+    <% } %>
     <div class="row">
         <% if(products.length === 0){ %>
             <div class="alert alert-danger">
@@ -36,9 +41,13 @@
                                 <a href="/product/<%= product._id%>"><%= product.name%></a>
                                 <p>Price:  <%= product.price%> $</p>
                             </h5>
-                            <form action="/cart" method="post">
-                                <input type="number" name="amout" class="form-control">
-                                <input type="submit" value="Add to cart" class="btn btn-primary">
+                            <form action="/cart" method="POST">
+                                <input type="number" name="amount" class="form-control">
+                                <input type="hidden" name="name" value="<%= product.name %>">
+                                <input type="hidden" name="price" value="<%= product.price %>" >
+                                <input type="hidden" name="productId" value="<%= product._id %>">
+                                <input type="hidden" name="redirectTo" value="/">
+                                <input type="submit" value="Add to cart" >
                             </form>
                         </div>
                     </div>

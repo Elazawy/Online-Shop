@@ -15,6 +15,8 @@
         <br>
         <% if(emailError) {%>
             <p class="alert alert-danger"><%= emailError.msg%></p>
+        <% } else if(signupError) {%>
+            <p class="alert alert-danger"><%= signupError%></p>
         <% } %>
         <input type="password" name="password" class="form-control" placeholder="Password">
         <% let passwordError = validationErrors.find(err => err.path === "password")%>

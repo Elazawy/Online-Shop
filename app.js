@@ -1,8 +1,12 @@
 const express = require('express');
 const path = require('path');
+// Import Routers
 const homeRouter = require('./routes/home.route');
 const productRouter = require('./routes/product.route')
 const authRouter = require('./routes/auth.route');
+const cartRouter = require('./routes/cart.route');
+const orderRouter = require('./routes/order.route');
+
 const session = require('express-session');
 const SessionStore = require('connect-mongodb-session')(session);
 require('dotenv').config();
@@ -47,6 +51,8 @@ app.use(session({
 app.set('view engine', 'ejs'); 
 app.set('views'); // Default
 
+app.use('/cart', cartRouter);
 app.use('/', homeRouter);
 app.use('/product', productRouter)
 app.use('/', authRouter);
+app.use('/order', orderRouter);

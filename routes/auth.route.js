@@ -1,9 +1,10 @@
 const router = require('express').Router();
 const authController = require('../controllers/auth.controller');
 const check = require('express-validator').check
+const authGaurder = require('../routes/guards/auth.guard');
 
-router.get('/signup', authController.getSignup);
-router.post('/signup',
+router.get('/signup', authGaurder.notAuth, authController.getSignup);
+router.post('/signup', authGaurder.notAuth,
     check('username')
         .not().isEmpty().withMessage('Username is required'),
     check('email')
@@ -19,8 +20,8 @@ router.post('/signup',
         else throw 'Passwords must match';
     }),
     authController.postSignup);
-router.get('/login', authController.getLogin);
-router.post('/login',
+router.get('/login', authGaurder.notAuth, authController.getLogin);
+router.post('/login', authGaurder.notAuth,
     check('email')
         .not().isEmpty().withMessage('Email is required')
         .isEmail().withMessage("Invalid Email"),
@@ -28,5 +29,5 @@ router.post('/login',
         .not().isEmpty().withMessage("Password is required")
         .isLength({min:6}).withMessage("Invalid Email or Password"),
     authController.postLogin);
-router.all('/logout', authController.logout);
+router.all('/logout',authGaurder.isAuth, authController.logout);
 module.exports = router;

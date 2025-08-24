@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
-const DB_URL = process.env.DB_URI;
-
 const userSchema = mongoose.Schema({
     username: {
         type: String,
@@ -25,7 +23,7 @@ exports.createNewUser = (username, email, password) => {
         return User.findOne({email})
             .then(user => {
                 if(user) {
-                    reject('Email is used');
+                    reject('Email already exists');
                 } else {
                     return bcrypt.hash(password, 10)
                 }
@@ -56,7 +54,7 @@ exports.login = (email, password) => {
                 if(!user || !(await bcrypt.compare(password, user.password))) {
                     reject('Invalid email or password');
                 } else {
-                    resolve(user._id);
+                    resolve({userId: user._id, username: user.username});
                 }
             })
             .catch(err => {

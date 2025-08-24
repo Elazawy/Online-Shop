@@ -4,6 +4,8 @@ const { validationResult } = require('express-validator');
 exports.getSignup = (req, res, next) => {
     res.render('signup', {
         validationErrors: req.flash('validationErrors'),
+        isUser: false,
+        signupError: req.flash('emailExistError')[0]
     });
 }
 
@@ -14,7 +16,10 @@ exports.postSignup = (req, res, next) => {
             .then( () => {
                 res.redirect('login')
             })
-            .catch( err => {
+            .catch( error => {
+                if(error === "Email already exists") {
+                    req.flash('emailExistError', error);
+                }
                 res.redirect('signup');
             })
     } else {
@@ -26,7 +31,8 @@ exports.postSignup = (req, res, next) => {
 exports.getLogin = (req, res, next) => {
     res.render('login', {
         authError: req.flash('authError')[0],
-        validationErrors: req.flash('validationErrors')
+        validationErrors: req.flash('validationErrors'),
+        isUser: false
     });
 }
 
@@ -34,8 +40,9 @@ exports.postLogin = (req, res, next) => {
     if(validationResult(req).isEmpty()) {
         authModel
             .login(req.body.email, req.body.password)
-            .then( (id) => {
-                req.session.userId = id;
+            .then( (user) => {
+                req.session.userId = user.userId;
+                req.session.username = user.username;
                 res.redirect('/');
             })
             .catch( err => {

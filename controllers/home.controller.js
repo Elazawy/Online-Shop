@@ -1,4 +1,5 @@
 const productsModel = require('../models/products.model');
+const authModel = require('../models/auth.model');
 
 exports.getHome = (req, res, next) => {
     let category = req.query.category;
@@ -10,7 +11,10 @@ exports.getHome = (req, res, next) => {
     }
     productsPromise.then(products => {
         res.render('index', {
-            products, category
+            products, category,
+            isUser: req.session.userId,
+            validationError: req.flash('validationErrors')[0],
+            username : req.session.username,
         })
     })
 }
