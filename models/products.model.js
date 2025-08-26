@@ -53,3 +53,11 @@ exports.getProductById = (id) => {
         return Promise.resolve(undefined);
     }
 };
+exports.addProduct = (data) => {
+    return new Promise((resolve, reject) => {
+        let product = new Product(data);
+        return product.save()
+            .then((product) => { resolve() })
+            .catch(err => { reject(err) })
+    })
+}

@@ -10,6 +10,7 @@ exports.getCart = (req, res, next) => {
                 isUser: true,
                 validationError: req.flash('validationError')[0],
                 username: req.session.username,
+                isAdmin: req.session.isAdmin,
             })
         })
         .catch((err) => {

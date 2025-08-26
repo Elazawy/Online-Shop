@@ -2,26 +2,65 @@
 <%- include('parts/navbar.ejs')%>
 
 <% if(product === undefined) { %>
-    <div class="alert alert-danger">
-        There is no product matches this id
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="alert alert-danger text-center">
+                    There is no product matches this id
+                </div>
+            </div>
+        </div>
     </div>
 <% } else { %>
-    <div class="container">
+    <div class="container mt-5">
         <div class="row">
-            <div class="col col-12 col-md-6">
-                <img src="/<%= product.image %>">
-                <form action="/cart" method="post">
-                    <input type="number" name="amount" class="form-control">
-                    <input type="submit" value="Add to cart" class="btn btn-primary">
-                </form>
+            <div class="col-12 col-md-6 mb-4">
+                <div class="card border-0 shadow-sm">
+                    <img src="/<%= product.image %>"
+                         alt="<%= product.name%>"
+                         class="card-img-top img-fluid"
+                         style="height: 400px; object-fit: cover;">
+                </div>
+
+                <div class="mt-4">
+                    <div class="card p-4">
+                        <form action="/cart" method="post">
+                            <div class="mb-3">
+                                <label for="amount" class="form-label fw-semibold">Quantity</label>
+                                <input type="number"
+                                       name="amount"
+                                       id="amount"
+                                       class="form-control"
+                                       value="1"
+                                       min="1"
+                                       required>
+                            </div>
+                            <div class="d-grid">
+                                <input type="submit"
+                                       value="Add to cart"
+                                       class="btn btn-primary btn-lg">
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-            
-            <div class="col col-12 col-md-6">
-                <h3><%= product.name%></h3>
-                <h5>Price: <%= product.price%> $</h5>
-                <p><%= product.description%></p>
+
+            <div class="col-12 col-md-6">
+                <div class="product-info">
+                    <h1 class="display-5 fw-bold mb-4"><%= product.name%></h1>
+
+                    <div class="price-section mb-4">
+                        <h3 class="text-primary fw-bold">Price: $<%= product.price%></h3>
+                    </div>
+
+                    <div class="description-section">
+                        <h5 class="fw-semibold mb-3">Description</h5>
+                        <p class="lead text-muted"><%= product.description%></p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 <% } %>
+
 <%- include('parts/footer.ejs')%>

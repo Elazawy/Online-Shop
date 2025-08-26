@@ -6,6 +6,7 @@ const productRouter = require('./routes/product.route')
 const authRouter = require('./routes/auth.route');
 const cartRouter = require('./routes/cart.route');
 const orderRouter = require('./routes/order.route');
+const adminRouter = require('./routes/admin.route');
 
 const session = require('express-session');
 const SessionStore = require('connect-mongodb-session')(session);
@@ -56,3 +57,4 @@ app.use('/', homeRouter);
 app.use('/product', productRouter)
 app.use('/', authRouter);
 app.use('/order', orderRouter);
+app.use('/admin', adminRouter);

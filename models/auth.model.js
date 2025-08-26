@@ -13,6 +13,10 @@ const userSchema = mongoose.Schema({
     password: {
         type: String,
         required: true
+    },
+    isAdmin: {
+        type: Boolean,
+        default: false
     }
 })
 
@@ -54,7 +58,9 @@ exports.login = (email, password) => {
                 if(!user || !(await bcrypt.compare(password, user.password))) {
                     reject('Invalid email or password');
                 } else {
-                    resolve({userId: user._id, username: user.username});
+                    resolve({userId: user._id,
+                        isAdmin: user.isAdmin,
+                        username: user.username});
                 }
             })
             .catch(err => {

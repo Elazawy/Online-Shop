@@ -1,0 +1,118 @@
+<%- include('parts/header.ejs')%>
+<%- include('parts/navbar.ejs')%>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-primary text-white text-center">
+                    <h3 class="mb-0">Add Product</h3>
+                </div>
+                <div class="card-body p-4">
+                    <form action="/admin/add" enctype="multipart/form-data" method="post">
+                        <!-- Product Name -->
+                        <div class="mb-4">
+                            <label for="name" class="form-label fw-semibold">Product Name</label>
+                            <input type="text"
+                                   class="form-control form-control-lg"
+                                   id="name"
+                                   name="name"
+                                   placeholder="Enter product name"
+                                   required>
+                            <% let nameError = validationErrors.find(err => err.path === 'name')%>
+                            <% if(nameError) { %>
+                                <div class="alert alert-danger mt-2 mb-0">
+                                    <small><%= nameError.msg %></small>
+                                </div>
+                            <% } %>
+                        </div>
+
+                        <!-- Product Price -->
+                        <div class="mb-4">
+                            <label for="price" class="form-label fw-semibold">Price ($)</label>
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-text">$</span>
+                                <input type="number"
+                                       class="form-control"
+                                       id="price"
+                                       name="price"
+                                       placeholder="0.00"
+                                       step="0.01"
+                                       min="0"
+                                       required>
+                            </div>
+                            <% let priceError = validationErrors.find(err => err.path === 'price')%>
+                            <% if(priceError) { %>
+                                <div class="alert alert-danger mt-2 mb-0">
+                                    <small><%= priceError.msg %></small>
+                                </div>
+                            <% } %>
+                        </div>
+
+                        <!-- Product Description -->
+                        <div class="mb-4">
+                            <label for="description" class="form-label fw-semibold">Description</label>
+                            <textarea class="form-control"
+                                      name="description"
+                                      id="description"
+                                      rows="4"
+                                      placeholder="Enter product description..."
+                                      required></textarea>
+                            <% let descriptionError = validationErrors.find(err => err.path === 'description')%>
+                            <% if(descriptionError) { %>
+                                <div class="alert alert-danger mt-2 mb-0">
+                                    <small><%= descriptionError.msg %></small>
+                                </div>
+                            <% } %>
+                        </div>
+
+                        <!-- Product Category -->
+                        <div class="mb-4">
+                            <label for="category" class="form-label fw-semibold">Category</label>
+                            <select name="category" id="category" class="form-select form-select-lg" required>
+                                <option value="" disabled selected>Choose a category</option>
+                                <option value="shirts">Shirts</option>
+                                <option value="pants">Pants</option>
+                                <option value="shoes">Shoes</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <% let categoryError = validationErrors.find(err => err.path === 'category')%>
+                            <% if(categoryError) { %>
+                                <div class="alert alert-danger mt-2 mb-0">
+                                    <small><%= categoryError.msg %></small>
+                                </div>
+                            <% } %>
+                        </div>
+
+                        <!-- Product Image -->
+                        <div class="mb-4">
+                            <label for="image" class="form-label fw-semibold">Product Image</label>
+                            <input type="file"
+                                   name="image"
+                                   id="image"
+                                   class="form-control form-control-lg"
+                                   accept="image/*"
+                                   required>
+                            <div class="form-text">Please select an image file (JPG, PNG, etc.)</div>
+                            <% let imageError = validationErrors.find(err => err.path === 'image')%>
+                            <% if(imageError) { %>
+                                <div class="alert alert-danger mt-2 mb-0">
+                                    <small><%= imageError.msg %></small>
+                                </div>
+                            <% } %>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                Add Product
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('parts/footer.ejs')%>

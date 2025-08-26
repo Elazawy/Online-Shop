@@ -1,0 +1,22 @@
+<%- include('parts/header.ejs')%>
+<%- include('parts/navbar.ejs')%>
+
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="card shadow p-4" style="max-width: 400px; width: 100%;">
+        <h3 class="text-center mb-4">Checkout</h3>
+        <form action="/order/add" method="post">
+            <div class="mb-3">
+                <label for="address" class="form-label">Address</label>
+                <input type="text"
+                       id="address"
+                       name="address"
+                       class="form-control"
+                       placeholder="Enter your address"
+                       required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Order</button>
+        </form>
+    </div>
+</div>
+
+<%- include('parts/footer.ejs')%>

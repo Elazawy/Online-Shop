@@ -5,7 +5,8 @@ exports.getSignup = (req, res, next) => {
     res.render('signup', {
         validationErrors: req.flash('validationErrors'),
         isUser: false,
-        signupError: req.flash('emailExistError')[0]
+        signupError: req.flash('emailExistError')[0],
+        isAdmin: false,
     });
 }
 
@@ -32,7 +33,8 @@ exports.getLogin = (req, res, next) => {
     res.render('login', {
         authError: req.flash('authError')[0],
         validationErrors: req.flash('validationErrors'),
-        isUser: false
+        isUser: false,
+        isAdmin: false,
     });
 }
 
@@ -40,9 +42,10 @@ exports.postLogin = (req, res, next) => {
     if(validationResult(req).isEmpty()) {
         authModel
             .login(req.body.email, req.body.password)
-            .then( (user) => {
-                req.session.userId = user.userId;
-                req.session.username = user.username;
+            .then( (result) => {
+                req.session.userId = result.userId;
+                req.session.username = result.username;
+                req.session.isAdmin = result.isAdmin;
                 res.redirect('/');
             })
             .catch( err => {

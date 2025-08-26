@@ -15,7 +15,7 @@
                             <a class="nav-link" href="/cart">Cart</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/orders">Orders</a>
+                            <a class="nav-link" href="/order">Orders</a>
                         </li>
                     <% } else { %>
                         <li class="nav-item">
@@ -25,12 +25,14 @@
                             <a class="nav-link" href="/signup">Signup</a>
                         </li>
                     <% } %>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/add">Add Product</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/orders">Manage Orders</a>
-                    </li>
+                    <% if(isAdmin) {%>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/add">Add Product</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/orders">Manage Orders</a>
+                        </li>
+                    <% } %>
                 </ul>
                 <%if(isUser) {%>
                     <div class="d-flex align-items-center gap-4">

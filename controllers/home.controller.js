@@ -15,6 +15,7 @@ exports.getHome = (req, res, next) => {
             isUser: req.session.userId,
             validationError: req.flash('validationErrors')[0],
             username : req.session.username,
+            isAdmin: req.session.isAdmin,
         })
     })
 }
