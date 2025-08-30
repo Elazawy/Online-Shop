@@ -8,29 +8,29 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        <a class="nav-link <%= pageTitle === "Home" ? "active" : ""%>" aria-current="page" href="/">Home</a>
                     </li>
                     <% if( isUser ) {%>
                         <li class="nav-item">
-                            <a class="nav-link" href="/cart">Cart</a>
+                            <a class="nav-link <%= pageTitle === "Carts" ? "active" : ""%>" href="/cart">Cart</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/order">Orders</a>
+                        <li class="nav-item ">
+                            <a class="nav-link <%= pageTitle === "Orders" ? "active" : ""%>" href="/order">Orders</a>
                         </li>
                     <% } else { %>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/login">Login</a>
+                        <li class="nav-item ">
+                            <a class="nav-link <%= pageTitle === "Login" ? "active" : ""%>" href="/login">Login</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/signup">Signup</a>
+                        <li class="nav-item ">
+                            <a class="nav-link <%= pageTitle === "Sign up" ? "active" : ""%>" href="/signup">Signup</a>
                         </li>
                     <% } %>
                     <% if(isAdmin) {%>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/admin/add">Add Product</a>
+                        <li class="nav-item ">
+                            <a class="nav-link <%= pageTitle === "Add Product" ? "active" : ""%>" href="/admin/add">Add Product</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/admin/orders">Manage Orders</a>
+                        <li class="nav-item ">
+                            <a class="nav-link <%= pageTitle === "Manage Orders" ? "active" : ""%>" href="/admin/orders">Manage Orders</a>
                         </li>
                     <% } %>
                 </ul>

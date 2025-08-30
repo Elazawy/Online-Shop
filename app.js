@@ -58,3 +58,35 @@ app.use('/product', productRouter)
 app.use('/', authRouter);
 app.use('/order', orderRouter);
 app.use('/admin', adminRouter);
+
+app.use((error, req, res, next) => {
+    res.redirect('/error');
+})
+
+app.get('/error', (req, res) => {
+    res.status(500);
+    res.render('error',{
+        isUser: req.session.userId,
+        username: req.session.username,
+        isAdmin: req.session.isAdmin,
+        pageTitle: "Error"
+    });
+})
+app.get('/not-admin', (req, res) => {
+    res.status(403);
+    res.render('not-admin', {
+        isUser: req.session.userId,
+        username: req.session.username,
+        isAdmin: false,
+        pageTitle: "Error",
+    });
+})
+app.use((req, res, next) => {
+    res.status(404);
+    res.render('not-found', {
+        isUser: req.session.userId,
+        username: req.session.username,
+        isAdmin: req.session.isAdmin,
+        pageTitle: "404 Not Found",
+    })
+})

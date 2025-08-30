@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const {reject} = require("bcrypt/promises");
 const Schema = require('mongoose').Schema;
 
 const orderSchema = new Schema({
@@ -7,6 +8,7 @@ const orderSchema = new Schema({
     amount: Number,
     cost: Number,
     address: String,
+    email: String,
     status: {
         type: String,
         default: 'Pending',
@@ -26,6 +28,13 @@ exports.getAllOrders = (userId) => {
             .catch(err => reject(err));
     })
 };
+exports.getOrdersByStatus = (status) => {
+    return new Promise((resolve, reject) => {
+        return Order.find({ status })
+            .then(orders => resolve(orders))
+            .catch(err => reject(err));
+    })
+}
 exports.addNewOrder = (data) => {
     return new Promise((resolve, reject) => {
         const order = new Order(data);
@@ -46,5 +55,26 @@ exports.deleteAllOrders = (userId) => {
         Order.deleteMany({ userId })
             .then(() => resolve())
             .catch(err => reject(err));
+    })
+}
+exports.getAllOrdersForAdmin = () => {
+    return new Promise((resolve, reject) => {
+        return Order.find({})
+            .then(orders => resolve(orders))
+            .catch(err => reject(err));
+    })
+}
+exports.getOrdersByEmail = (email) => {
+    return new Promise((resolve, reject) => {
+        return Order.find({email})
+            .then(orders => resolve(orders))
+            .catch(err => reject(err));
+    })
+}
+exports.editOrderStatusById = (id, newStatus) => {
+    return new Promise((resolve, reject) => {
+        Order.updateOne({_id: id}, {status: newStatus})
+            .then(() => resolve() )
+            .catch(err =>  reject(err) )
     })
 }

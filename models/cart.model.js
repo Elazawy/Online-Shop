@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const {promise} = require("bcrypt/promises");
+const authModel = require("../models/auth.model");
 
 const cartSchema = mongoose.Schema({
     name: String,
@@ -7,6 +8,7 @@ const cartSchema = mongoose.Schema({
     amount: Number,
     userId: String,
     productId: String,
+    email: String,
     timeStamp: Number,
 })
 
@@ -21,16 +23,21 @@ exports.addNewItem = data => {
                         .then(() => resolve())
                         .catch(err => reject(err));
                 } else {
-                    let item = new CartItem(data);
-                    return item.save()
-                        .then(() => {
-                            resolve();
+                    authModel.getEmailByUserId(data.userId)
+                        .then((email) => {
+                            let item = new CartItem({...data, email});
+                            return item.save()
+                                .then(() => {
+                                    resolve();
+                                })
+                                .catch((err) => {
+                                    reject(err);
+                                })
                         })
-                        .catch((err) => {
-                            reject(err);
-                        })
+                        .catch(err => reject(err));
                 }
             })
+            .catch(err => reject(err));
     })
 }
 exports.getItemsbyUserId = (userId) => {

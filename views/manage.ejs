@@ -1,0 +1,74 @@
+<%- include('parts/header.ejs')%>
+<%- include('parts/navbar.ejs')%>
+<div class="container mt-4">
+    <form method="get" class="row justify-content-center">
+        <div class="col-12 text-center">
+            <a href="/admin/orders" class="btn btn-primary btn-custom">All</a>
+            <a href="/admin/orders?status=Pending" class="btn btn-primary btn-custom">Pending</a>
+            <a href="/admin/orders?status=Sent" class="btn btn-primary btn-custom">Sent</a>
+            <a href="/admin/orders?status=Completed" class="btn btn-primary btn-custom">Completed</a>
+        </div>
+    </form>
+    <div class="row justify-content-center mt-3">
+        <div class="col-12 text-center">
+            <div class="input-group">
+                <form method="post" action="/admin/orders" class="input-group">
+                    <input name="email" type="email" class="form-control" placeholder="User Email">
+                    <button type="submit" class="btn btn-primary btn-custom">Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-3 table-container">
+        <div class="col-12">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Product name</th>
+                    <th>amount</th>
+                    <th>cost</th>
+                    <th>address</th>
+                    <th>time</th>
+                    <th>status</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% for (let i =0; i  < orders.length; i++) { %>
+                    <tr>
+                        <td> <%= orders[i].email%> </td>
+                        <td><%= orders[i].productName %></td>
+                        <td><%= orders[i].amount %></td>
+                        <td><%= orders[i].cost %></td>
+                        <td><%= orders[i].address %></td>
+                        <td>
+                            <%= new Date(orders[i].timeOrderedIn).toLocaleString("en-US", {
+                                month: "2-digit",
+                                day: "2-digit",
+                                year: "2-digit",
+                                hour: "2-digit",
+                                minute: "2-digit",
+                                hour12: true
+                            }) %>
+                        </td>
+
+                        <td>
+                            <form method="post" action="/admin/orders/edit">
+                                <select name="status" class="form-select status-select" >
+                                    <option value="Pending" <%= orders[i].status === "Pending" ? "selected" : "" %>>Pending</option>
+                                    <option value="Sent" <%= orders[i].status === "Sent" ? "selected" : "" %>>Sent</option>
+                                    <option value="Completed" <%= orders[i].status === "Completed" ? "selected" : "" %>>Completed</option>
+                                </select>
+                                <input type="hidden" name="id" value="<%= orders[i]._id %>">
+                                <td><button class="btn save-btn" type="submit">Save</button></td>
+                            </form>
+                        </td>
+                    </tr>
+                <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<%- include('parts/footer.ejs')%>

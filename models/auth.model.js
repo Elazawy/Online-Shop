@@ -68,3 +68,12 @@ exports.login = (email, password) => {
             })
     })
 }
+exports.getEmailByUserId = (userId) => {
+    return new Promise((resolve, reject) => {
+        return User.findOne({_id: userId})
+            .then(user => {
+                resolve(user.email);
+            })
+            .catch(err => { console.log(err) });
+    })
+}

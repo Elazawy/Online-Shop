@@ -9,10 +9,11 @@ exports.getOrders = (req, res, next) => {
                 isUser: true,
                 username: req.session.username,
                 isAdmin: req.session.isAdmin,
+                pageTitle: "Orders"
             })
         })
         .catch(err => {
-            console.log(err);
+            next(err);
         })
 }
 exports.getAddress = (req, res, next) => {
@@ -21,7 +22,7 @@ exports.getAddress = (req, res, next) => {
         username: req.session.username,
         isUser: true,
         isAdmin: req.session.isAdmin,
-
+        pageTitle: "Address"
     })
 }
 exports.getAddressForAllOrders = (req, res, next) => {
@@ -29,7 +30,7 @@ exports.getAddressForAllOrders = (req, res, next) => {
         username: req.session.username,
         isUser: true,
         isAdmin: req.session.isAdmin,
-
+        pageTitle: "Address"
     })
 }
 exports.addOrder = (req, res, next) => {
@@ -40,6 +41,7 @@ exports.addOrder = (req, res, next) => {
         userId: req.session.userId,
         productName: data.productName,
         amount: data.amount,
+        email: data.email,
         cost : data.price * data.amount,
         address: data.address,
     })
@@ -50,7 +52,7 @@ exports.addOrder = (req, res, next) => {
             res.redirect('/order');
         })
         .catch(err => {
-            console.log(err);
+            next(err);
         })
 }
 exports.orderAllCarts = (req, res, next) => {
@@ -66,17 +68,17 @@ exports.orderAllCarts = (req, res, next) => {
                 })
                     .then(() => {
                         cartModel.deleteItem(cart._id)
-                            .catch(err => console.log(err));
+                            .catch(err => next(err));
                     })
                     .catch(err => {
-                        console.log(err);
+                        next(err);
                     });
             }
         })
         .then(() => {
             res.redirect('/order');
         })
-        .catch(err => console.log(err));
+        .catch(err => next(err));
 }
 exports.cancelOrder = (req, res, next) => {
     orderModel.deleteOrder(req.body.orderId)
@@ -84,7 +86,7 @@ exports.cancelOrder = (req, res, next) => {
             res.redirect('/order');
         })
         .catch(err => {
-            console.log(err);
+            next(err);
         })
 }
 exports.cancelAllOrders = (req, res, next) => {
@@ -93,6 +95,6 @@ exports.cancelAllOrders = (req, res, next) => {
             res.redirect('/');
         })
         .catch(err => {
-            console.log(err);
+            next(err);
         })
 }

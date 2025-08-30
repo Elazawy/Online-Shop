@@ -74,7 +74,7 @@
                                                 <input type="hidden" name="productName" value="<%= items[i].name %>">
                                                 <input type="hidden" name="price" value="<%= items[i].price %>">
                                                 <input type="hidden" name="cartId" value="<%= items[i]._id %>">
-
+                                                <input type="hidden" name="email" value="<%= items[i].email %>">
                                                 <div class="btn-group-vertical btn-group-sm" role="group">
                                                     <button type="submit"
                                                             class="btn btn-outline-primary btn-sm mb-1"
@@ -135,3 +135,4 @@
         </div>
     </div>
 </div>
+<%- include('parts/footer.ejs')%>

@@ -20,6 +20,7 @@ exports.getProductById = (req, res, next) => {
             isAdmin: req.session.isAdmin,
             isUser: req.session.userId,
             username: req.session.username,
+            pageTitle: product.name
         })
     })
 }

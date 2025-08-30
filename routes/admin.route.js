@@ -31,3 +31,16 @@ router.post('/add',
     },
     adminController.postAdd
 )
+
+router.get('/orders',
+    adminGuard,
+    adminController.getOrders
+)
+router.post('/orders',
+    adminGuard,
+    adminController.getOrdersByEmail
+)
+router.post('/orders/edit',
+    adminGuard,
+    adminController.editOrder
+)
