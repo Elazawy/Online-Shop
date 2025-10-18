@@ -13,6 +13,7 @@ const SessionStore = require('connect-mongodb-session')(session);
 require('dotenv').config();
 const mongoose = require('mongoose');
 const flash = require('connect-flash')
+const passport = require('./config/passport');
 
 const app = express();
 
@@ -47,6 +48,8 @@ app.use(session({
     store: STORE,
     resave: false
 }))
+app.use(passport.initialize());
+app.use(passport.session())
 
 //View engine and ejs files directory
 app.set('view engine', 'ejs'); 

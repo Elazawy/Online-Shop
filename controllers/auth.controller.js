@@ -1,5 +1,6 @@
 const authModel = require('../models/auth.model');
 const { validationResult } = require('express-validator');
+const passport = require('../config/passport')
 
 exports.getSignup = (req, res, next) => {
     res.render('signup', {
@@ -42,23 +43,23 @@ exports.getLogin = (req, res, next) => {
 
 exports.postLogin = (req, res, next) => {
     if(validationResult(req).isEmpty()) {
-        authModel
-            .login(req.body.email, req.body.password)
-            .then( (result) => {
-                req.session.userId = result.userId;
-                req.session.username = result.username;
-                req.session.isAdmin = result.isAdmin;
-                res.redirect('/');
+        return passport.authenticate('local', (err, user, info) => {
+            if(err) {
+                return next(err);
+            }
+            if(!user) {
+                req.flash('authError', info.message);
+                return res.redirect('/login');
+            }
+            req.logIn(user, (err) => {
+                if(err) { return next(err) }
+                return res.redirect('/');
             })
-            .catch( err => {
-                req.flash('authError', err)
-                res.redirect('login');
-            })
+        })(req, res, next);
     } else {
         req.flash('validationErrors', validationResult(req).array());
         res.redirect('/login');
     }
-
 }
 exports.logout = (req, res, next) => {
     req.session.destroy();

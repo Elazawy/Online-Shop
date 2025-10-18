@@ -77,3 +77,5 @@ exports.getEmailByUserId = (userId) => {
             .catch(err => { console.log(err) });
     })
 }
+
+exports.User = User;

@@ -4,6 +4,7 @@ const check = require('express-validator').check
 const authGaurder = require('../routes/guards/auth.guard');
 
 router.get('/signup', authGaurder.notAuth, authController.getSignup);
+
 router.post('/signup', authGaurder.notAuth,
     check('username')
         .not().isEmpty().withMessage('Username is required'),
@@ -20,7 +21,9 @@ router.post('/signup', authGaurder.notAuth,
         else throw 'Passwords must match';
     }),
     authController.postSignup);
+
 router.get('/login', authGaurder.notAuth, authController.getLogin);
+
 router.post('/login', authGaurder.notAuth,
     check('email')
         .not().isEmpty().withMessage('Email is required')
@@ -29,5 +32,7 @@ router.post('/login', authGaurder.notAuth,
         .not().isEmpty().withMessage("Password is required")
         .isLength({min:6}).withMessage("Invalid Email or Password"),
     authController.postLogin);
+
 router.all('/logout',authGaurder.isAuth, authController.logout);
+
 module.exports = router;
