@@ -8,6 +8,7 @@ const cartRouter = require('./routes/cart.route');
 const orderRouter = require('./routes/order.route');
 const adminRouter = require('./routes/admin.route');
 const rateLimiting = require('express-rate-limit');
+const compression = require('compression');
 
 const session = require('express-session');
 const SessionStore = require('connect-mongodb-session')(session);
@@ -15,6 +16,8 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const flash = require('connect-flash')
 const passport = require('./config/passport');
+const cors = require('cors');
+
 
 const app = express();
 
@@ -33,6 +36,8 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'assets')));
 app.use(express.static(path.join(__dirname, 'images')));
 app.use(flash());
+app.use(cors());
+app.use(compression());
 // Rate limiting middleware
 app.use(rateLimiting({
     windowMs: 10 * 60 * 1000, // 15 minutes
