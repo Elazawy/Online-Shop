@@ -53,6 +53,9 @@ exports.postLogin = (req, res, next) => {
             }
             req.logIn(user, (err) => {
                 if(err) { return next(err) }
+                req.session.userId = req.user._id;
+                req.session.username = req.user.username;
+                req.session.isAdmin = req.user.isAdmin
                 return res.redirect('/');
             })
         })(req, res, next);
@@ -65,3 +68,4 @@ exports.logout = (req, res, next) => {
     req.session.destroy();
     res.redirect('/');
 }
+

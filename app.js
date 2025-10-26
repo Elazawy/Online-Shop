@@ -7,6 +7,7 @@ const authRouter = require('./routes/auth.route');
 const cartRouter = require('./routes/cart.route');
 const orderRouter = require('./routes/order.route');
 const adminRouter = require('./routes/admin.route');
+const rateLimiting = require('express-rate-limit');
 
 const session = require('express-session');
 const SessionStore = require('connect-mongodb-session')(session);
@@ -32,6 +33,11 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'assets')));
 app.use(express.static(path.join(__dirname, 'images')));
 app.use(flash());
+// Rate limiting middleware
+app.use(rateLimiting({
+    windowMs: 10 * 60 * 1000, // 15 minutes
+    max: 200 // limit each IP to 200 requests per windowMs
+}))
 
 // Make session store
 const STORE = new SessionStore({

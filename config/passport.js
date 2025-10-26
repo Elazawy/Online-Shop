@@ -1,8 +1,58 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const GitHubStrategy = require('passport-github2').Strategy;
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const bcrypt = require('bcrypt');
 const { User }  = require('../models/auth.model');
+const { escapeXML } = require('ejs');
+require('dotenv').config();
 
+// Google Strategy
+passport.use( new GoogleStrategy({
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: "/auth/google/cb"
+}, async (accessToken, refreshToken, profile, done) => {
+    const user = await User.findOne({googleId: profile.id});
+    console.log(profile);
+    if(!user) {
+        // create new user
+        const newUser = new User({
+            username: profile.displayName,
+            email: null,
+            googleId: profile.id,
+            password: null
+        });
+        await newUser.save();
+        return done(null, newUser);
+    } else {
+        return done(null, user);
+    }
+})
+)
+// GitHub Strategy
+passport.use( new GitHubStrategy({
+    clientID: process.env.GITHUB_CLIENT_ID,
+    clientSecret: process.env.GITHUB_CLIEINT_SECRET,
+    callbackURL: "/auth/github/cb"
+}, async (accessToken, refreshToken, profile, done) => {
+    const user = await User.findOne({githubId: profile.id});
+    if(!user) {
+        // create new user
+        const newUser = new User({
+            username: profile.username,
+            email: null,
+            githubId: profile.id,
+            password: null
+        });
+        await newUser.save();
+        return done(null, newUser);
+    } else {
+        return done(null, user);
+    }
+})
+)
+ // Local Strategy
 passport.use( new LocalStrategy({
         usernameField: 'email',
         passwordField: 'password'

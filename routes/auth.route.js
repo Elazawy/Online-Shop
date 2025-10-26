@@ -2,6 +2,7 @@ const router = require('express').Router();
 const authController = require('../controllers/auth.controller');
 const check = require('express-validator').check
 const authGaurder = require('../routes/guards/auth.guard');
+const passport = require('../config/passport');
 
 router.get('/signup', authGaurder.notAuth, authController.getSignup);
 
@@ -31,7 +32,36 @@ router.post('/login', authGaurder.notAuth,
     check('password')
         .not().isEmpty().withMessage("Password is required")
         .isLength({min:6}).withMessage("Invalid Email or Password"),
-    authController.postLogin);
+    authController.postLogin
+);
+
+ // GitHub Auth Routes
+router.get('/auth/github', passport.authenticate('github', 
+    {
+        scope: ['user']
+    })
+);
+router.get('/auth/github/cb', passport.authenticate('github') ,
+     (req, res) => {
+        req.session.userId = req.user._id;
+        req.session.username = req.user.username;
+        req.session.isAdmin = req.user.isAdmin
+        res.redirect('/');
+     })
+
+// Google Auth Routes
+router.get('/auth/google', passport.authenticate('google', 
+    {
+        scope: ['profile']
+    })
+);
+router.get('/auth/google/cb', passport.authenticate('google') ,
+     (req, res) => {
+        req.session.userId = req.user._id;
+        req.session.username = req.user.username;
+        req.session.isAdmin = req.user.isAdmin
+        res.redirect('/');
+     })
 
 router.all('/logout',authGaurder.isAuth, authController.logout);
 

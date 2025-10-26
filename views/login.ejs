@@ -5,29 +5,44 @@
     <br>
     <h3>Login</h3>
     <br>
-    <form action="/login" method="post">
-        <input type="email" name="email" class="form-control" placeholder="E-mail">
-        <% let emailError = validationErrors.find(err => err.path === "email")%>
-        <br>
-        <% if(emailError) {%>
-            <p class="alert alert-danger"><%= emailError.msg%></p>
+    <div class="col-12 col-md-6 col-lg-4 mx-auto">
+        <form action="/login" method="post">
+            <input type="email" name="email" class="form-control input-field" placeholder="E-mail">
+            <% let emailError = validationErrors.find(err => err.path === "email")%>
+            <br>
+            <% if(emailError) {%>
+                <p class="alert alert-danger"><%= emailError.msg%></p>
+            <% } %>
+            <input type="password" name="password" class="form-control" placeholder="Password">
+            <% let passwordError = validationErrors.find(err => err.path === "password")%>
+            <br>
+            <% if(passwordError) {%>
+                <p class="alert alert-danger"><%= passwordError.msg%></p>
+            <% } %>
+            <br>
+            <input type="submit" value="Login" class="btn btn-primary">
+        </form>
+        <% if(authError) { %>
+            <br>
+            <p class="alert alert-danger"><%= authError %></p>
         <% } %>
-        <input type="password" name="password" class="form-control" placeholder="Password">
-        <% let passwordError = validationErrors.find(err => err.path === "password")%>
         <br>
-        <% if(passwordError) {%>
-            <p class="alert alert-danger"><%= passwordError.msg%></p>
-        <% } %>
+        <div class="d-grid gap-2">
+            <form action="auth/github">
+                <button type="submit" class="btn btn-dark btn-block w-100 mb-2">
+                    <i class="fab fa-github me-2"></i> Login with GitHub
+                </button>
+            </form>
+            <form action="auth/google">
+                <button type="submit" class="btn btn-danger btn-block w-100">
+                    <i class="fab fa-google me-2"></i> Login with Google
+                </button>
+            </form>
+        </div>
         <br>
-        <input type="submit" value="Login" class="btn btn-primary">
-    </form>
-    <% if(authError) { %>
-        <br>
-        <p class="alert alert-danger"><%= authError %></p>
-    <% } %>
-    <br>
-    <div>
-        Don't have an account? <a href="/signup">Creat Account</a>
+        <div>
+            Don't have an account? <a href="/signup">Create Account</a>
+        </div>
     </div>
 </div>
 

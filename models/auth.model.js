@@ -8,15 +8,27 @@ const userSchema = mongoose.Schema({
     },
     email: {
         type: String,
-        required: true
+        required: function() {
+            return !(this.githubId || this.googleId);
+        }
     },
     password: {
         type: String,
-        required: true
+        required: function() {
+            return !(this.githubId || this.googleId);
+        }
     },
     isAdmin: {
         type: Boolean,
         default: false
+    },
+    githubId: {
+        type: String,
+        default: null
+    },
+    googleId: {
+        type: String,
+        default: null
     }
 })
 
