@@ -29,7 +29,9 @@ const userSchema = mongoose.Schema({
     googleId: {
         type: String,
         default: null
-    }
+    },
+    reset_token: String,
+    reset_token_expires: Date
 })
 
 const User = mongoose.model('user', userSchema);

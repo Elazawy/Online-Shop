@@ -26,7 +26,6 @@ exports.postAdd = (req, res, next) => {
 
 exports.getOrders = (req, res, next) => {
     if (req.query.status){
-        console.log(req.query.status);
         orderModel.getOrdersByStatus(req.query.status)
             .then(orders => {
                 res.render('manage', {

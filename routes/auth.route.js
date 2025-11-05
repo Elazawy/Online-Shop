@@ -21,7 +21,8 @@ router.post('/signup', authGaurder.notAuth,
         if(confirmPassword === req.body.password) return true;
         else throw 'Passwords must match';
     }),
-    authController.postSignup);
+    authController.postSignup
+);
 
 router.get('/login', authGaurder.notAuth, authController.getLogin);
 
@@ -47,7 +48,8 @@ router.get('/auth/github/cb', passport.authenticate('github') ,
         req.session.username = req.user.username;
         req.session.isAdmin = req.user.isAdmin
         res.redirect('/');
-     })
+     }
+);
 
 // Google Auth Routes
 router.get('/auth/google', passport.authenticate('google', 
@@ -61,8 +63,29 @@ router.get('/auth/google/cb', passport.authenticate('google') ,
         req.session.username = req.user.username;
         req.session.isAdmin = req.user.isAdmin
         res.redirect('/');
-     })
+     }
+);
 
+router.get('/forgot-password', authGaurder.notAuth, authController.getForgotPassword);
+router.post('/forgot-password', authGaurder.notAuth,
+    check('email')
+        .not().isEmpty().withMessage('Email is required')
+        .isEmail().withMessage("Invalid Email"),
+     authController.postForgotPassword
+);     
+router.get('/reset-password', authGaurder.notAuth, authController.getResetPassword);
+router.post('/reset-password', authGaurder.notAuth,
+    check('password')
+        .not().isEmpty().withMessage("Password is required")
+        .isLength({min:6}).withMessage("Password must be at least 6 characters"),
+    check('confirmPassword')
+        .not().isEmpty().withMessage("Confirm Password is required")
+        .custom((confirmPassword, {req}) => {
+        if(confirmPassword === req.body.password) return true;
+        else throw 'Passwords must match';
+    }),
+    authController.postResetPassword
+);
 router.all('/logout',authGaurder.isAuth, authController.logout);
 
 module.exports = router;
