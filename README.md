@@ -1,155 +1,162 @@
 # 🛒 Online Shop - Full-Stack E-Commerce Platform
 
-A modern, full-featured e-commerce web application built with Node.js, Express, MongoDB, and EJS. This project demonstrates professional-grade architecture, authentication workflows, and complete shopping cart functionality with an admin management system.
+> A production-ready e-commerce web application built with Node.js, Express, MongoDB, and EJS. Features secure authentication, complete shopping cart functionality, and a comprehensive admin management system.
+
+[![Node.js](https://img.shields.io/badge/Node.js-16+-green.svg)](https://nodejs.org/)
+[![Express](https://img.shields.io/badge/Express-5.x-lightgrey.svg)](https://expressjs.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-6.x-brightgreen.svg)](https://www.mongodb.com/)
+[![License](https://img.shields.io/badge/License-ISC-blue.svg)](LICENSE)
 
 ---
 
-## 📋 Project Overview
+## 📑 Table of Contents
 
-This Online Shop is a comprehensive e-commerce platform that allows users to browse products, manage their shopping cart, place orders, and track their purchase history. The application features secure authentication (including OAuth with GitHub and Google), password reset functionality, and a complete admin panel for managing products and orders.
-
-The project follows the **MVC (Model-View-Controller)** architectural pattern, ensuring clean separation of concerns and maintainable code structure. It implements session-based authentication, role-based access control, and includes rate limiting and security best practices.
+- [Overview](#-overview)
+- [Key Features](#-key-features)
+- [Tech Stack](#-tech-stack)
+- [Architecture](#-architecture)
+- [Getting Started](#-getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Environment Configuration](#environment-configuration)
+  - [Running the Application](#running-the-application)
+- [Project Structure](#-project-structure)
+- [API Endpoints](#-api-endpoints)
+- [Database Schemas](#-database-schemas)
+- [Screenshots](#-screenshots)
+- [Future Roadmap](#-future-roadmap)
+- [Why This Project](#-why-this-project)
+- [License](#-license)
 
 ---
 
-## ✨ Features
+## 🎯 Overview
 
-### 🛍️ Customer Features
-- **Product Browsing**: View all products with category-based filtering (Shirts, Pants, Shoes, Other)
-- **Product Details**: Detailed product pages with descriptions, pricing, and images
-- **Shopping Cart**: Full cart management with quantity updates and item removal
-- **Order Management**: Place orders with delivery addresses and track order status
-- **User Authentication**: 
-  - Email/password registration and login
-  - OAuth integration (GitHub & Google)
-  - Password reset via email
-- **Order History**: View complete order history with status tracking
-- **Responsive Design**: Mobile-first Bootstrap UI that works on all devices
+This online shop is a comprehensive e-commerce platform that enables users to browse products, manage shopping carts, place orders, and track purchases. The application implements secure authentication with OAuth support, role-based access control, and a complete admin panel for product and order management.
 
-### 👨‍💼 Admin Features
-- **Product Management**: Add new products with images, descriptions, and categories
-- **Order Management**: 
-  - View all orders with filtering by status (Pending, Sent, Completed)
-  - Search orders by customer email
-  - Update order status
-- **Admin Dashboard**: Protected admin routes with role-based access control
+**Built with the MVC (Model-View-Controller)** architecture, the application ensures clean code separation, maintainability, and scalability. It incorporates session-based authentication, input validation, rate limiting, and other security best practices suitable for production environments.
 
-### 🔒 Security Features
-- Password hashing with bcrypt
-- Session management with MongoDB store
-- CSRF protection considerations
-- Rate limiting (200 requests per 10 minutes)
-- Input validation with express-validator
-- Secure file uploads with Multer
+**Live Demo:** *Coming Soon*
 
-### ⚡ Performance Features
-- Response compression
-- Session persistence
-- Optimized MongoDB queries
-- Image optimization considerations
+---
+
+## ✨ Key Features
+
+### Customer Experience
+- **Product Catalog** - Browse products with category filtering (Shirts, Pants, Shoes, Other)
+- **Product Details** - View comprehensive product information with images and descriptions
+- **Shopping Cart** - Full cart management including add, update quantity, and remove items
+- **Secure Checkout** - Place orders with delivery address specification
+- **Order Tracking** - Monitor order status and view complete purchase history
+- **Multi-Auth Support** - Email/password, GitHub OAuth, and Google OAuth login
+- **Password Recovery** - Reset password via secure email link
+- **Responsive Design** - Mobile-first Bootstrap interface optimized for all devices
+
+### Administration
+- **Product Management** - Add products with images, descriptions, pricing, and categories
+- **Order Dashboard** - View and manage all orders with status filtering (Pending, Sent, Completed)
+- **Customer Search** - Query orders by customer email
+- **Status Updates** - Modify order status and track fulfillment
+- **Role-Based Access** - Protected admin routes with authorization middleware
+
+### Security & Performance
+- **Password Hashing** - bcrypt encryption for user credentials
+- **Session Management** - Persistent sessions stored in MongoDB
+- **Rate Limiting** - 200 requests per 10-minute window per IP
+- **Input Validation** - express-validator for all user inputs
+- **Secure File Uploads** - Multer with file type and size restrictions
+- **Response Compression** - Optimized data transfer with compression middleware
+- **CORS Protection** - Configured cross-origin resource sharing
 
 ---
 
 ## 🛠️ Tech Stack
 
-### Backend
-- **Runtime**: Node.js
-- **Framework**: Express 5.x
-- **Database**: MongoDB with Mongoose ODM
-- **Template Engine**: EJS
-- **Authentication**: Passport.js (Local, GitHub, Google OAuth)
-- **Session Management**: express-session + connect-mongodb-session
-- **Email**: Nodemailer
+**Backend**
+- Node.js - JavaScript runtime
+- Express 5.x - Web application framework
+- MongoDB - NoSQL database
+- Mongoose - ODM for MongoDB
+- Passport.js - Authentication middleware (Local, GitHub, Google)
+- EJS - Server-side templating engine
 
-### Frontend
-- **CSS Framework**: Bootstrap 5.x
-- **Icons**: Font Awesome 6.x
-- **Client-side**: Vanilla JavaScript, jQuery
+**Security**
+- bcrypt - Password hashing
+- express-validator - Input validation
+- express-rate-limit - API rate limiting
+- express-session - Session management
+- connect-mongodb-session - Session store
 
-### Security & Utilities
-- **Password Hashing**: bcrypt
-- **Validation**: express-validator
-- **Rate Limiting**: express-rate-limit
-- **File Upload**: Multer
-- **Environment Variables**: dotenv
-- **Compression**: compression middleware
-- **CORS**: cors
+**Utilities**
+- Multer - File upload handling
+- Nodemailer - Email service
+- dotenv - Environment configuration
+- compression - Response compression
+- cors - CORS middleware
 
-### Development
-- **Process Manager**: Nodemon
-- **Testing**: Jest, Puppeteer (E2E)
+**Frontend**
+- Bootstrap 5.x - CSS framework
+- Font Awesome 6.x - Icon library
+- jQuery - DOM manipulation
 
----
-
-## 📁 Project Structure
-
-```
-online-shop/
-├── controllers/           # Business logic layer
-│   ├── admin.controller.js
-│   ├── auth.controller.js
-│   ├── cart.controller.js
-│   ├── home.controller.js
-│   ├── order.controller.js
-│   └── product.controller.js
-├── models/               # Data models (Mongoose schemas)
-│   ├── auth.model.js
-│   ├── cart.model.js
-│   ├── order.model.js
-│   └── products.model.js
-├── routes/               # Route definitions
-│   ├── guards/          # Route protection middleware
-│   │   ├── admin.guard.js
-│   │   └── auth.guard.js
-│   ├── admin.route.js
-│   ├── auth.route.js
-│   ├── cart.route.js
-│   ├── home.route.js
-│   ├── order.route.js
-│   └── product.route.js
-├── views/                # EJS templates
-│   ├── parts/           # Reusable components
-│   │   ├── header.ejs
-│   │   ├── navbar.ejs
-│   │   └── footer.ejs
-│   ├── add-product.ejs
-│   ├── cart.ejs
-│   ├── index.ejs
-│   ├── login.ejs
-│   ├── signup.ejs
-│   ├── order.ejs
-│   └── [other views...]
-├── config/               # Configuration files
-│   └── passport.js      # Passport authentication strategies
-├── middlewares/          # Custom middleware
-│   └── checkImageErrors.js
-├── assets/               # Static assets (CSS, JS, images)
-├── images/               # Uploaded product images
-├── app.js               # Application entry point
-├── package.json
-└── .env                 # Environment variables (not in repo)
-```
-
-### Key Directories Explained
-
-- **controllers/**: Contains business logic for handling requests and responses
-- **models/**: Mongoose schemas defining data structure and database operations
-- **routes/**: Express route handlers with middleware chains
-- **routes/guards/**: Authentication and authorization middleware
-- **views/**: EJS templates for server-side rendering
-- **config/**: Application configuration (Passport strategies, etc.)
-- **middlewares/**: Custom Express middleware functions
+**Development**
+- Nodemon - Auto-restart during development
+- Jest - Unit testing framework
+- Puppeteer - End-to-end testing
 
 ---
 
-## 🚀 Setup & Installation
+## 🏗️ Architecture
+
+This application follows the **Model-View-Controller (MVC)** pattern:
+
+```
+┌─────────────┐
+│   Browser   │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│   Routes    │ ◄── Authentication & Validation Middleware
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│ Controllers │ ◄── Business Logic Layer
+└──────┬──────┘
+       │
+       ├──────────────┐
+       ▼              ▼
+┌──────────┐   ┌──────────┐
+│  Models  │   │  Views   │
+│(Mongoose)│   │  (EJS)   │
+└────┬─────┘   └──────────┘
+     │
+     ▼
+┌──────────┐
+│ MongoDB  │
+└──────────┘
+```
+
+**Key Architectural Decisions:**
+- **Separation of Concerns** - Clear boundaries between routing, business logic, and data access
+- **Middleware Chain** - Request processing through authentication, validation, and authorization layers
+- **Modular Design** - Reusable components and route guards
+- **Session-Based Auth** - Traditional session management for server-rendered pages
+- **Server-Side Rendering** - EJS templates for SEO-friendly content delivery
+
+---
+
+## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js (v16 or higher)
-- MongoDB (local or Atlas)
-- npm or yarn
 
-### Installation Steps
+Ensure you have the following installed:
+- **Node.js** (v16 or higher) - [Download](https://nodejs.org/)
+- **MongoDB** (v6 or higher) - [Download](https://www.mongodb.com/try/download/community) or use [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
+- **npm** or **yarn** - Comes with Node.js
+
+### Installation
 
 1. **Clone the repository**
    ```bash
@@ -162,108 +169,150 @@ online-shop/
    npm install
    ```
 
-3. **Create environment file**
-   
-   Create a `.env` file in the root directory with the following variables:
-   
-   ```env
-   # Server Configuration
-   PORT=3000
-   
-   # Database
-   DB_URI=mongodb://localhost:27017/online-shop
-   # Or use MongoDB Atlas:
-   # DB_URI=mongodb+srv://username:password@cluster.mongodb.net/online-shop
-   
-   # Session Secret
-   SESSION_SECRET=your-super-secret-session-key-change-this
-   
-   # OAuth - GitHub
-   GITHUB_CLIENT_ID=your-github-client-id
-   GITHUB_CLIEINT_SECRET=your-github-client-secret
-   
-   # OAuth - Google
-   GOOGLE_CLIENT_ID=your-google-client-id
-   GOOGLE_CLIENT_SECRET=your-google-client-secret
-   
-   # Email Configuration (for password reset)
-   EMAIL_USER=your-email@gmail.com
-   EMAIL_PASS=your-app-specific-password
-   
-   # File Upload
-   MAX_IMAGE_SIZE=5242880
-   ```
+### Environment Configuration
 
-4. **Start MongoDB**
-   
-   If using local MongoDB:
-   ```bash
-   mongod
-   ```
+Create a `.env` file in the project root directory:
 
-5. **Run the application**
-   
-   **Development mode** (with auto-restart):
-   ```bash
-   npm run dev
-   ```
-   
-   **Production mode**:
-   ```bash
-   npm start
-   ```
+```env
+# Server Configuration
+PORT=3000
 
-6. **Access the application**
-   
-   Open your browser and navigate to:
-   ```
-   http://localhost:3000
-   ```
+# Database Connection
+DB_URI=mongodb://localhost:27017/online-shop
+# For MongoDB Atlas:
+# DB_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/online-shop
 
-### OAuth Setup (Optional)
+# Session Secret (generate a strong random string)
+SESSION_SECRET=your-super-secret-session-key-change-this-in-production
 
-To enable GitHub/Google login:
+# GitHub OAuth (optional)
+GITHUB_CLIENT_ID=your-github-oauth-client-id
+GITHUB_CLIEINT_SECRET=your-github-oauth-client-secret
 
-1. **GitHub OAuth**:
-   - Go to GitHub Settings → Developer settings → OAuth Apps
-   - Create new OAuth App
-   - Set callback URL: `http://localhost:3000/auth/github/cb`
-   - Copy Client ID and Secret to `.env`
+# Google OAuth (optional)
+GOOGLE_CLIENT_ID=your-google-oauth-client-id
+GOOGLE_CLIENT_SECRET=your-google-oauth-client-secret
 
-2. **Google OAuth**:
-   - Go to Google Cloud Console
-   - Create new project and enable Google+ API
-   - Create OAuth 2.0 credentials
-   - Set callback URL: `http://localhost:3000/auth/google/cb`
-   - Copy Client ID and Secret to `.env`
+# Email Service (for password reset)
+EMAIL_USER=your-email@gmail.com
+EMAIL_PASS=your-gmail-app-password
+
+# File Upload Configuration
+MAX_IMAGE_SIZE=5242880
+```
+
+**Setting up OAuth Providers (Optional):**
+
+<details>
+<summary><b>GitHub OAuth Setup</b></summary>
+
+1. Navigate to [GitHub Developer Settings](https://github.com/settings/developers)
+2. Click "New OAuth App"
+3. Fill in application details:
+   - **Application name:** Online Shop
+   - **Homepage URL:** `http://localhost:3000`
+   - **Authorization callback URL:** `http://localhost:3000/auth/github/cb`
+4. Copy the Client ID and Client Secret to your `.env` file
+</details>
+
+<details>
+<summary><b>Google OAuth Setup</b></summary>
+
+1. Go to [Google Cloud Console](https://console.cloud.google.com/)
+2. Create a new project or select an existing one
+3. Enable the Google+ API
+4. Navigate to "Credentials" → "Create Credentials" → "OAuth client ID"
+5. Configure OAuth consent screen if prompted
+6. Set application type to "Web application"
+7. Add authorized redirect URI: `http://localhost:3000/auth/google/cb`
+8. Copy the Client ID and Client Secret to your `.env` file
+</details>
+
+### Running the Application
+
+**Development Mode** (with auto-restart on file changes):
+```bash
+npm run dev
+```
+
+**Production Mode**:
+```bash
+npm start
+```
+
+The application will be available at: **http://localhost:3000**
+
+**First-Time Setup:**
+1. Navigate to `/signup` to create an account
+2. To access admin features, manually set `isAdmin: true` in the MongoDB users collection for your account
 
 ---
 
-## 📸 Screenshots
+## 📁 Project Structure
 
-### Homepage - Product Listing
-![Homepage Screenshot](./screenshots/home.png)
-*Browse products with category filtering*
-
-### Product Details
-![Product Details Screenshot](./screenshots/product-details.png)
-*Detailed product information with add-to-cart functionality*
-
-### Shopping Cart
-![Shopping Cart Screenshot](./screenshots/cart.png)
-*Manage cart items with quantity updates*
-
-### Order Management
-![Orders Screenshot](./screenshots/orders.png)
-*Track order history and status*
-
-### Admin Dashboard
-![Admin Dashboard Screenshot](./screenshots/admin.png)
-*Admin panel for product and order management*
-
-### Authentication
-![Login Screenshot](./screenshots/login.png)
-*Secure login with OAuth options*
+```
+online-shop/
+│
+├── app.js                      # Application entry point & Express configuration
+├── package.json                # Dependencies and scripts
+├── .env                        # Environment variables (not in repo)
+│
+├── config/                     # Configuration files
+│   └── passport.js            # Passport authentication strategies
+│
+├── controllers/               # Business logic layer
+│   ├── admin.controller.js    # Admin operations (products, orders)
+│   ├── auth.controller.js     # Authentication & password reset
+│   ├── cart.controller.js     # Shopping cart operations
+│   ├── home.controller.js     # Homepage & product listing
+│   ├── order.controller.js    # Order placement & management
+│   └── product.controller.js  # Product details
+│
+├── models/                    # Data layer (Mongoose schemas)
+│   ├── auth.model.js         # User schema & authentication logic
+│   ├── cart.model.js         # Shopping cart schema
+│   ├── order.model.js        # Order schema
+│   └── products.model.js     # Product schema
+│
+├── routes/                    # Route definitions
+│   ├── guards/               # Authorization middleware
+│   │   ├── admin.guard.js    # Admin-only route protection
+│   │   └── auth.guard.js     # User authentication checks
+│   ├── admin.route.js        # Admin endpoints
+│   ├── auth.route.js         # Authentication endpoints
+│   ├── cart.route.js         # Cart endpoints
+│   ├── home.route.js         # Public endpoints
+│   ├── order.route.js        # Order endpoints
+│   └── product.route.js      # Product endpoints
+│
+├── middlewares/               # Custom middleware
+│   └── checkImageErrors.js   # File upload validation
+│
+├── views/                     # EJS templates
+│   ├── parts/                # Reusable components
+│   │   ├── header.ejs        # HTML head & styles
+│   │   ├── navbar.ejs        # Navigation bar
+│   │   └── footer.ejs        # Scripts & closing tags
+│   ├── index.ejs             # Homepage
+│   ├── product.ejs           # Product details
+│   ├── cart.ejs              # Shopping cart
+│   ├── order.ejs             # Order history
+│   ├── login.ejs             # Login page
+│   ├── signup.ejs            # Registration page
+│   ├── forgot-password.ejs   # Password reset request
+│   ├── reset-password.ejs    # Password reset form
+│   ├── add-product.ejs       # Admin: Add product
+│   ├── manage.ejs            # Admin: Manage orders
+│   ├── address.ejs           # Checkout address form
+│   ├── error.ejs             # Error page
+│   └── not-found.ejs         # 404 page
+│
+├── assets/                    # Static files
+│   ├── css/                  # Bootstrap & custom styles
+│   └── js/                   # Client-side JavaScript
+│
+└── images/                    # Uploaded product images
+```
 
 ---
 
@@ -273,212 +322,240 @@ To enable GitHub/Google login:
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| GET | `/` | Homepage with product listing |
-| GET | `/product/:id` | Product details page |
+| `GET` | `/` | Homepage with product listing and category filter |
+| `GET` | `/product/:id` | Product details page |
 
-### Authentication Routes
+### Authentication
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/signup` | Signup page |
-| POST | `/signup` | Create new account |
-| GET | `/login` | Login page |
-| POST | `/login` | Authenticate user |
-| POST | `/logout` | End user session |
-| GET | `/auth/github` | GitHub OAuth |
-| GET | `/auth/google` | Google OAuth |
-| GET | `/forgot-password` | Password reset request |
-| POST | `/forgot-password` | Send reset email |
-| GET | `/reset-password` | Reset password page |
-| POST | `/reset-password` | Update password |
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| `GET` | `/signup` | Registration page | No |
+| `POST` | `/signup` | Create new user account | No |
+| `GET` | `/login` | Login page | No |
+| `POST` | `/login` | Authenticate user | No |
+| `POST` | `/logout` | End session | Yes |
+| `GET` | `/auth/github` | Initiate GitHub OAuth | No |
+| `GET` | `/auth/github/cb` | GitHub OAuth callback | No |
+| `GET` | `/auth/google` | Initiate Google OAuth | No |
+| `GET` | `/auth/google/cb` | Google OAuth callback | No |
+| `GET` | `/forgot-password` | Password reset request page | No |
+| `POST` | `/forgot-password` | Send password reset email | No |
+| `GET` | `/reset-password` | Password reset form | No |
+| `POST` | `/reset-password` | Update user password | No |
 
-### Cart Routes (Protected)
+### Shopping Cart
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/cart` | View shopping cart |
-| POST | `/cart` | Add item to cart |
-| POST | `/cart/save` | Update cart item quantity |
-| POST | `/cart/delete` | Remove item from cart |
-| POST | `/cart/deleteAll` | Clear entire cart |
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| `GET` | `/cart` | View cart contents | Yes |
+| `POST` | `/cart` | Add item to cart | Yes |
+| `POST` | `/cart/save` | Update item quantity | Yes |
+| `POST` | `/cart/delete` | Remove single item | Yes |
+| `POST` | `/cart/deleteAll` | Clear entire cart | Yes |
 
-### Order Routes (Protected)
+### Orders
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/order` | View order history |
-| POST | `/order/address` | Checkout single item |
-| POST | `/order/addressAll` | Checkout all cart items |
-| POST | `/order/add` | Place order |
-| POST | `/order/orderall` | Order all cart items |
-| POST | `/order/cancel` | Cancel order |
-| POST | `/order/cancelAll` | Cancel all orders |
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| `GET` | `/order` | View order history | Yes |
+| `POST` | `/order/address` | Proceed to checkout (single item) | Yes |
+| `POST` | `/order/addressAll` | Proceed to checkout (all items) | Yes |
+| `POST` | `/order/add` | Place order | Yes |
+| `POST` | `/order/orderall` | Place order for all cart items | Yes |
+| `POST` | `/order/cancel` | Cancel specific order | Yes |
+| `POST` | `/order/cancelAll` | Cancel all user orders | Yes |
 
-### Admin Routes (Protected - Admin Only)
+### Admin Panel
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/admin/add` | Add product page |
-| POST | `/admin/add` | Create new product |
-| GET | `/admin/orders` | Manage orders |
-| POST | `/admin/orders` | Search orders by email |
-| POST | `/admin/orders/edit` | Update order status |
-
----
-
-## 🗄️ Database Models
-
-### User Schema
-```javascript
-{
-  username: String (required),
-  email: String (required, unique),
-  password: String (hashed with bcrypt),
-  isAdmin: Boolean (default: false),
-  githubId: String (for OAuth),
-  googleId: String (for OAuth),
-  reset_token: String,
-  reset_token_expires: Date
-}
-```
-
-### Product Schema
-```javascript
-{
-  name: String,
-  image: String (filename),
-  price: Number,
-  description: String,
-  category: String (shirts, pants, shoes, other)
-}
-```
-
-### Cart Item Schema
-```javascript
-{
-  name: String,
-  price: Number,
-  amount: Number,
-  userId: String (ref to User),
-  productId: String (ref to Product),
-  email: String,
-  timeStamp: Number
-}
-```
-
-### Order Schema
-```javascript
-{
-  userId: String (ref to User),
-  productName: String,
-  amount: Number,
-  cost: Number,
-  address: String,
-  email: String,
-  status: String (Pending, Sent, Completed),
-  timeOrderedIn: Date (default: now)
-}
-```
+| Method | Endpoint | Description | Admin Required |
+|--------|----------|-------------|----------------|
+| `GET` | `/admin/add` | Add product form | Yes |
+| `POST` | `/admin/add` | Create new product | Yes |
+| `GET` | `/admin/orders` | View all orders (with status filter) | Yes |
+| `POST` | `/admin/orders` | Search orders by email | Yes |
+| `POST` | `/admin/orders/edit` | Update order status | Yes |
 
 ---
 
-## 🔮 Future Improvements
+## 🗄️ Database Schemas
 
-### Technical Enhancements
-- [ ] Migrate from EJS to **React/Next.js** for modern SPA experience
-- [ ] Implement **GraphQL API** for more efficient data fetching
-- [ ] Add **Redis caching** for improved performance
-- [ ] Implement **WebSocket** for real-time order updates
-- [ ] Add comprehensive **unit and integration tests** (Jest/Mocha)
-- [ ] Implement **CI/CD pipeline** with GitHub Actions
+### User Model
+```javascript
+{
+  username: String,            // Required
+  email: String,              // Required, unique
+  password: String,           // Hashed with bcrypt
+  isAdmin: Boolean,           // Default: false
+  githubId: String,           // For GitHub OAuth (optional)
+  googleId: String,           // For Google OAuth (optional)
+  reset_token: String,        // Password reset token
+  reset_token_expires: Date   // Token expiration timestamp
+}
+```
 
-### Feature Additions
-- [ ] **Payment Integration** (Stripe, PayPal)
-- [ ] **Product Reviews & Ratings** system
-- [ ] **Advanced Search** with Elasticsearch
-- [ ] **Wishlist** functionality
-- [ ] **Order Tracking** with shipping API integration
-- [ ] **Email Notifications** for order status changes
-- [ ] **Product Recommendations** using ML
-- [ ] **Multi-vendor Support**
-- [ ] **Inventory Management** system
-- [ ] **Discount Codes & Promotions**
+### Product Model
+```javascript
+{
+  name: String,               // Product name
+  image: String,              // Image filename
+  price: Number,              // Product price
+  description: String,        // Product description
+  category: String            // Category: shirts, pants, shoes, other
+}
+```
+
+### Cart Item Model
+```javascript
+{
+  name: String,               // Product name
+  price: Number,              // Product price
+  amount: Number,             // Quantity
+  userId: String,             // Reference to User
+  productId: String,          // Reference to Product
+  email: String,              // User email
+  timeStamp: Number           // Creation timestamp
+}
+```
+
+### Order Model
+```javascript
+{
+  userId: String,             // Reference to User
+  productName: String,        // Product name
+  amount: Number,             // Quantity ordered
+  cost: Number,               // Total cost
+  address: String,            // Delivery address
+  email: String,              // User email
+  status: String,             // Pending, Sent, Completed (default: Pending)
+  timeOrderedIn: Date         // Order timestamp (default: now)
+}
+```
+
+---
+
+## 📸 Screenshots
+
+### Homepage - Product Catalog
+![Homepage Screenshot](./screenshots/home.png)
+*Browse products with category filtering*
+
+### Product Details
+![Product Details Screenshot](./screenshots/product-details.png)
+*Detailed product information with add-to-cart functionality*
+
+### Shopping Cart
+![Shopping Cart Screenshot](./screenshots/cart.png)
+*Manage cart items with quantity updates and checkout options*
+
+### Order History
+![Orders Screenshot](./screenshots/orders.png)
+*Track orders with real-time status updates*
+
+### Admin Dashboard - Order Management
+![Admin Dashboard Screenshot](./screenshots/admin.png)
+*Admin panel for managing products and orders*
+
+### Authentication - Login
+![Login Screenshot](./screenshots/login.png)
+*Secure login with email/password and OAuth options*
+
+---
+
+## 🔮 Future Roadmap
+
+### High Priority
+- [ ] **Payment Integration** - Implement Stripe/PayPal checkout
+- [ ] **Email Notifications** - Automated order confirmation and status updates
+- [ ] **Product Reviews** - Customer rating and review system
+- [ ] **Advanced Search** - Full-text search with Elasticsearch
+- [ ] **Inventory Management** - Stock tracking and low-stock alerts
+
+### Technical Improvements
+- [ ] **Frontend Migration** - Convert from EJS to React/Next.js for SPA experience
+- [ ] **GraphQL API** - Implement GraphQL for flexible data queries
+- [ ] **Redis Caching** - Cache frequently accessed data for performance
+- [ ] **WebSocket Integration** - Real-time order status updates
+- [ ] **Comprehensive Testing** - Increase test coverage with Jest and Puppeteer
+- [ ] **CI/CD Pipeline** - Automated testing and deployment with GitHub Actions
+
+### Feature Enhancements
+- [ ] **Wishlist** - Save products for later
+- [ ] **Product Recommendations** - ML-based suggestions
+- [ ] **Order Tracking** - Integration with shipping providers
+- [ ] **Discount Codes** - Coupon and promotion system
+- [ ] **Multi-vendor Support** - Marketplace functionality
+- [ ] **Customer Analytics** - Admin dashboard with sales metrics
+- [ ] **Bulk Operations** - CSV product import/export
+- [ ] **Dark Mode** - UI theme toggle
 
 ### UI/UX Improvements
-- [ ] **Dark Mode** toggle
-- [ ] **Progressive Web App (PWA)** capabilities
-- [ ] **Advanced Filtering** (price range, ratings, etc.)
-- [ ] **Product Image Gallery** with zoom
-- [ ] **Interactive Product Comparisons**
-
-### Admin Enhancements
-- [ ] **Analytics Dashboard** with charts
-- [ ] **Bulk Product Upload** (CSV/Excel)
-- [ ] **Customer Management** interface
-- [ ] **Sales Reports** generation
+- [ ] **Progressive Web App** - Offline capability and mobile app experience
+- [ ] **Advanced Filtering** - Price range, ratings, availability
+- [ ] **Image Gallery** - Multiple product images with zoom
+- [ ] **Product Comparison** - Side-by-side product comparison tool
 
 ---
 
-## 💡 Why This Project Matters
+## 💡 Why This Project
 
 ### Learning Outcomes
 
-This project demonstrates proficiency in building **production-ready full-stack applications** and showcases several critical skills that are highly valued in the software industry:
+This project demonstrates proficiency in building **production-ready full-stack applications** and showcases critical skills valued in modern software development:
 
-#### 1. **Full-Stack Development Mastery**
-- End-to-end application development from database design to user interface
-- RESTful API design and implementation
-- Server-side rendering with EJS templates
-- Responsive, mobile-first design principles
+**1. Full-Stack Development**
+- Complete application development from database design to user interface
+- RESTful API architecture and implementation
+- Server-side rendering with template engines
+- Responsive, mobile-first design principles with Bootstrap
 
-#### 2. **Authentication & Security**
-- Implemented **3 authentication strategies**: local username/password, GitHub OAuth, and Google OAuth
+**2. Authentication & Security**
+- Multi-strategy authentication (local credentials + OAuth)
 - Secure password hashing and session management
-- CSRF protection and rate limiting
-- Input validation and sanitization to prevent SQL injection and XSS attacks
+- CSRF protection and rate limiting implementation
+- Input validation and sanitization to prevent common vulnerabilities
 
-#### 3. **Real-World E-Commerce Logic**
-- Shopping cart with session persistence
-- Order management system with status tracking
-- Admin role-based access control
+**3. E-Commerce Domain Knowledge**
+- Shopping cart logic with session persistence
+- Order management workflow with status tracking
+- Role-based access control (RBAC) for admin features
 - File upload handling for product images
 
-#### 4. **Scalable Architecture**
-- **MVC pattern** for maintainable, organized code
-- Middleware chaining for request processing
-- Modular route protection with custom guards
+**4. Scalable Architecture**
+- MVC pattern for code organization and maintainability
+- Middleware chains for modular request processing
+- Custom route guards for authorization
 - Database indexing and query optimization
 
-#### 5. **Professional Development Practices**
+**5. Professional Development Practices**
 - Environment-based configuration management
-- Error handling and validation throughout the application
-- Code reusability through shared components
-- Git version control with meaningful commits
+- Comprehensive error handling and validation
+- Code modularity and reusability
+- Version control with Git
 
 ### Real-World Relevance
 
-This project simulates a **complete e-commerce platform** similar to those used by thousands of businesses worldwide. The technical stack and architectural decisions reflect current industry standards:
+This project simulates a **complete e-commerce platform** used by thousands of businesses. The technical stack reflects current industry standards:
 
-- **Node.js + Express**: Powers platforms like Netflix, LinkedIn, and Uber
-- **MongoDB**: Used by enterprises like eBay, Cisco, and Adobe
-- **OAuth Integration**: Standard authentication method across the web
-- **Session-based Authentication**: Common pattern for traditional web applications
+- **Node.js + Express** powers platforms like Netflix, LinkedIn, and Uber
+- **MongoDB** is trusted by eBay, Cisco, and Adobe for scalable data storage
+- **OAuth integration** is the authentication standard across modern web applications
+- **Session-based authentication** remains prevalent for server-rendered applications
 
 ### Career Impact
 
-Building this project demonstrates:
-- **Problem-solving ability**: Handling complex user workflows
-- **Attention to detail**: Input validation, error handling, security
-- **Full development cycle experience**: From requirements to deployment
-- **Understanding of business logic**: E-commerce flows, user roles, order management
+This project demonstrates:
+- **Problem-solving skills** through complex user workflow implementation
+- **Attention to detail** in validation, error handling, and security
+- **End-to-end development** experience from requirements to deployment
+- **Business logic understanding** in e-commerce operations and user roles
 
-This is the type of project that hiring managers look for — not a simple CRUD app, but a **comprehensive application** that shows you can build real products that solve actual business problems.
+Unlike simple CRUD applications, this is a **comprehensive platform** that proves capability in building real products that solve actual business problems.
 
 ---
 
 ## 📝 License
 
-This project is open source and available under the [ISC License](LICENSE).
+This project is licensed under the **ISC License**.
 
 ---
 
@@ -487,18 +564,24 @@ This project is open source and available under the [ISC License](LICENSE).
 **Your Name**
 
 - GitHub: [@yourusername](https://github.com/yourusername)
-- LinkedIn: [Your LinkedIn](https://linkedin.com/in/yourprofile)
+- LinkedIn: [Your Profile](https://linkedin.com/in/yourprofile)
 - Portfolio: [yourportfolio.com](https://yourportfolio.com)
 
 ---
 
 ## 🙏 Acknowledgments
 
-- Bootstrap team for the excellent CSS framework
-- Passport.js community for authentication strategies
-- MongoDB team for the powerful database
-- Express.js maintainers for the robust web framework
+- [Express.js](https://expressjs.com/) for the robust web framework
+- [Passport.js](http://www.passportjs.org/) for flexible authentication
+- [Bootstrap](https://getbootstrap.com/) for the responsive CSS framework
+- [MongoDB](https://www.mongodb.com/) for the scalable database solution
 
 ---
 
-**⭐ If you find this project helpful, please consider giving it a star!**
+<div align="center">
+
+**⭐ Star this repository if you found it helpful!**
+
+Made with ❤️ by [Your Name]
+
+</div>
