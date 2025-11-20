@@ -26,7 +26,6 @@
 - [Screenshots](#-screenshots)
 - [Future Roadmap](#-future-roadmap)
 - [Why This Project](#-why-this-project)
-- [License](#-license)
 
 ---
 
@@ -496,76 +495,13 @@ online-shop/
 
 ---
 
-## 💡 Why This Project
-
-### Learning Outcomes
-
-This project demonstrates proficiency in building **production-ready full-stack applications** and showcases critical skills valued in modern software development:
-
-**1. Full-Stack Development**
-- Complete application development from database design to user interface
-- RESTful API architecture and implementation
-- Server-side rendering with template engines
-- Responsive, mobile-first design principles with Bootstrap
-
-**2. Authentication & Security**
-- Multi-strategy authentication (local credentials + OAuth)
-- Secure password hashing and session management
-- CSRF protection and rate limiting implementation
-- Input validation and sanitization to prevent common vulnerabilities
-
-**3. E-Commerce Domain Knowledge**
-- Shopping cart logic with session persistence
-- Order management workflow with status tracking
-- Role-based access control (RBAC) for admin features
-- File upload handling for product images
-
-**4. Scalable Architecture**
-- MVC pattern for code organization and maintainability
-- Middleware chains for modular request processing
-- Custom route guards for authorization
-- Database indexing and query optimization
-
-**5. Professional Development Practices**
-- Environment-based configuration management
-- Comprehensive error handling and validation
-- Code modularity and reusability
-- Version control with Git
-
-### Real-World Relevance
-
-This project simulates a **complete e-commerce platform** used by thousands of businesses. The technical stack reflects current industry standards:
-
-- **Node.js + Express** powers platforms like Netflix, LinkedIn, and Uber
-- **MongoDB** is trusted by eBay, Cisco, and Adobe for scalable data storage
-- **OAuth integration** is the authentication standard across modern web applications
-- **Session-based authentication** remains prevalent for server-rendered applications
-
-### Career Impact
-
-This project demonstrates:
-- **Problem-solving skills** through complex user workflow implementation
-- **Attention to detail** in validation, error handling, and security
-- **End-to-end development** experience from requirements to deployment
-- **Business logic understanding** in e-commerce operations and user roles
-
-Unlike simple CRUD applications, this is a **comprehensive platform** that proves capability in building real products that solve actual business problems.
-
----
-
-## 📝 License
-
-This project is licensed under the **ISC License**.
-
----
 
 ## 👨‍💻 Author
 
-**Your Name**
+**Ahmed Elazawy**
 
-- GitHub: [@yourusername](https://github.com/yourusername)
-- LinkedIn: [Your Profile](https://linkedin.com/in/yourprofile)
-- Portfolio: [yourportfolio.com](https://yourportfolio.com)
+- GitHub: [@Elazawy](https://github.com/elazawy)
+- LinkedIn: [Ahmed Elazawy](https://www.linkedin.com/in/ahmed-elazawy-1a0928303/)
 
 ---
 
@@ -582,6 +518,6 @@ This project is licensed under the **ISC License**.
 
 **⭐ Star this repository if you found it helpful!**
 
-Made with ❤️ by [Your Name]
+Made with ❤️ by [Ahmed elazawy]
 
 </div>
