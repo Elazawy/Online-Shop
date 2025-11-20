@@ -98,10 +98,6 @@ This online shop is a comprehensive e-commerce platform that enables users to br
 - Font Awesome 6.x - Icon library
 - jQuery - DOM manipulation
 
-**Development**
-- Nodemon - Auto-restart during development
-- Jest - Unit testing framework
-- Puppeteer - End-to-end testing
 
 ---
 
