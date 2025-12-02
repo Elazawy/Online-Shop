@@ -11,7 +11,7 @@ require('dotenv').config();
 passport.use( new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: process.env.BASE_URL + "/auth/github/cb"
+    callbackURL: process.env.BASE_URL + "/auth/google/cb"
 }, async (accessToken, refreshToken, profile, done) => {
     const user = await User.findOne({googleId: profile.id});
     console.log(profile);
