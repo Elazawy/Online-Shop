@@ -35,8 +35,8 @@ This online shop is a comprehensive e-commerce platform that enables users to br
 
 **Built with the MVC (Model-View-Controller)** architecture, the application ensures clean code separation, maintainability, and scalability. It incorporates session-based authentication, input validation, rate limiting, and other security best practices suitable for production environments.
 
-**Live Demo:** *Coming Soon*
-
+**[Live Demo](https://online-shop-a3ajbvanhre6hpb3.francecentral-01.azurewebsites.net/)**
+*Note: The website may take a few seconds to load on the first visit*
 ---
 
 ## ✨ Key Features
